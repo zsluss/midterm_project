@@ -16,9 +16,40 @@ header('Access-Control-Allow-Origin: *');
     exit();
 
   }
-  require_once '../../config/Database.php';
+include_once '../../config/Database.php';
+include_once '../../models/Authors.php';
 
   $database = new Database();
   $db = $database->connect();
 
+  $author = new Author($db);
+
+  switch($method) {
+    case 'GET':
+      if(isset($_GET['id'])) {
+        include_once 'read_single.php';
+      } else {
+        include_once 'read.php';
+      }
+      break;    
+
+    case 'POST':
+        include_once 'create.php';
+      break;
+
+    case 'PUT':
+      include_once 'update.php';
+      break;
+
+    case 'DELETE':
+      include_once 'delete.php';
+
+      break;
+    default:
+      echo json_encode(
+        array('message' => 'Method Not Allowed')
+      );
+      break;
+  }
   
+?>
