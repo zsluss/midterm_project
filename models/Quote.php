@@ -75,6 +75,16 @@
 
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+      if(!$row) {
+        $this->id = null;
+        $this->quote = null;
+        $this->author_id = null;
+        $this->category_id = null;
+        $this->author = null;
+        $this->category = null;
+        return;
+      }
+
       // set properties
       $this->id = $row['id'];
       $this->quote = $row['quote'];
