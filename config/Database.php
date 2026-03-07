@@ -16,9 +16,10 @@
       $this->db_name = getenv('DBNAME');
       $this->username = getenv('USERNAME');
       $this->password = getenv('PASSWORD');
+      $sslmode = getenv('SSLMODE') ?: 'require';
 
       try { 
-        $this->conn = new PDO('pgsql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->db_name . ';sslmode=require', $this->username, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        $this->conn = new PDO('pgsql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->db_name . ';sslmode=' . $sslmode, $this->username, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       } catch(PDOException $e) {
         echo 'Connection Error: ' . $e->getMessage();
