@@ -12,15 +12,15 @@
           echo json_encode(array(
             'id' => $quote->id,
             'quote' => $quote->quote,
-            'author_id' => $quote->author_id,
-            'category_id' => $quote->category_id
+            'author' => $quote->author,
+            'category' => $quote->category
           ));
         }
       } 
       // Handle filtering by author_id and/or category_id
       else if(isset($_GET['author_id']) || isset($_GET['category_id'])) {
         // Build query with filters
-        $query = 'SELECT id, quote, author_id, category_id FROM quotes WHERE 1=1';
+        $query = 'SELECT q.id, q.quote, a.author, c.category FROM quotes q JOIN authors a ON q.author_id = a.id JOIN categories c ON q.category_id = c.id WHERE 1=1';
         
         if(isset($_GET['author_id'])) {
           $query .= ' AND author_id = :author_id';
@@ -52,8 +52,8 @@
             $quote_item = array(
               'id' => $id,
               'quote' => $quote,
-              'author_id' => $author_id,
-              'category_id' => $category_id
+              'author' => $author,
+              'category' => $category
             );
             array_push($quotes_arr, $quote_item);
           }

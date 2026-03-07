@@ -9,6 +9,8 @@
     public $quote; 
     public $author_id;
     public $category_id;
+    public $author;
+    public $category;
 
     // Constructor with DB
     public function __construct($db) {
@@ -19,14 +21,20 @@
     public function read() {
       // Create query
       $query = 'SELECT
-        id,
-        quote,
-        author_id,
-        category_id
+        q.id,
+        q.quote,
+        q.author_id,
+        q.category_id,
+        a.author,
+        c.category
       FROM
-        ' . $this->table . '
+        ' . $this->table . ' q
+      JOIN
+        authors a ON q.author_id = a.id
+      JOIN
+        categories c ON q.category_id = c.id
       ORDER BY
-        id ASC';
+        q.id ASC';
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
@@ -41,13 +49,19 @@
   public function read_single(){
     // Create query
     $query = 'SELECT
-          id,
-          quote,
-          author_id,
-          category_id
+          q.id,
+          q.quote,
+          q.author_id,
+          q.category_id,
+          a.author,
+          c.category
         FROM
-          ' . $this->table . '
-      WHERE id = ?
+          ' . $this->table . ' q
+        JOIN
+          authors a ON q.author_id = a.id
+        JOIN
+          categories c ON q.category_id = c.id
+      WHERE q.id = ?
       LIMIT 1';
 
       //Prepare statement
@@ -66,6 +80,8 @@
       $this->quote = $row['quote'];
       $this->author_id = $row['author_id'];
       $this->category_id = $row['category_id'];
+        $this->author = $row['author'];
+        $this->category = $row['category'];
   }
 
   // Create Quote
