@@ -30,7 +30,7 @@ include_once '../../models/Categories.php';
 
   switch($method) {
     case 'GET':
-      if(isset($_GET['id'])) {
+      if(isset($_GET['id']) || isset($_GET['author_id']) || isset($_GET['category_id'])) {
         include_once 'read_single.php';
       } else {
         include_once 'read.php';
