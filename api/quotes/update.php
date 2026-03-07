@@ -14,7 +14,7 @@
       $author->read_single();
       if(empty($author->name)) {
         echo json_encode(
-          array('message' => 'author_id Not Found')
+          array('message' => 'No Quotes Found')
         );
         exit();
       }
@@ -24,7 +24,7 @@
       $category->read_single();
       if(empty($category->category)) {
         echo json_encode(
-          array('message' => 'category_id Not Found')
+          array('message' => 'No Quotes Found')
         );
         exit();
       }
@@ -45,7 +45,12 @@
 
       if($quote->update()) {
         echo json_encode(
-          array('message' => 'Quote Updated')
+          array(
+            'id' => $quote->id,
+            'quote' => $quote->quote,
+            'author_id' => $quote->author_id,
+            'category_id' => $quote->category_id
+          )
         );
       } else {
         echo json_encode(

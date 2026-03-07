@@ -13,7 +13,10 @@
 
       if($author->update()) {
         echo json_encode(
-          array('message' => 'Author Updated')
+          array(
+            'id' => $author->id,
+            'author' => $author->name
+          )
         );
       } else {
         echo json_encode(
