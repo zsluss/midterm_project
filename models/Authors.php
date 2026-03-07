@@ -55,6 +55,12 @@
 
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+      if(!$row) {
+        $this->id = null;
+        $this->name = null;
+        return;
+      }
+
       // set properties
       $this->id = $row['id'];
       $this->name = $row['author'];
