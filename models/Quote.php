@@ -71,7 +71,7 @@
   // Create Quote
   public function create() {
     // Create Query
-    $query = 'INSERT INTO ' . $this->table . ' (quote, author_id, category_id) VALUES (:quote, :author_id, :category_id)';
+    $query = 'INSERT INTO ' . $this->table . ' (quote, author_id, category_id) VALUES (:quote, :author_id, :category_id) RETURNING id';
 
   // Prepare Statement
   $stmt = $this->conn->prepare($query);
@@ -88,6 +88,8 @@
 
   // Execute query
   if($stmt->execute()) {
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $this->id = $row['id'];
     return true;
   }
 

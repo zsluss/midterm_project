@@ -4,7 +4,10 @@
 
       if($author->create()) {
         echo json_encode(
-          array('message' => 'Author Created')
+          array(
+            'id' => $author->id,
+            'author' => $author->name
+          )
         );
       } else {
         echo json_encode(

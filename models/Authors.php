@@ -63,7 +63,7 @@
   // Create Author
   public function create() {
     // Create Query
-    $query = 'INSERT INTO ' . $this->table . ' (author) VALUES (:author)';
+    $query = 'INSERT INTO ' . $this->table . ' (author) VALUES (:author) RETURNING id';
 
   // Prepare Statement
   $stmt = $this->conn->prepare($query);
@@ -76,6 +76,8 @@
 
   // Execute query
   if($stmt->execute()) {
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $this->id = $row['id'];
     return true;
   }
 
