@@ -7,7 +7,7 @@
       $quote->read_single();
       if(empty($quote->quote)) {
         echo json_encode(
-          array('message' => 'quote_id not Found')
+          array('message' => 'No Quotes Found')
         );
         exit();
       }

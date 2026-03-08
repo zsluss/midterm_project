@@ -4,7 +4,7 @@
       // Check for required parameters
       if(empty($data->quote) || empty($data->author_id) || empty($data->category_id)) {
         echo json_encode(
-          array('message' => 'Missing required parameters')
+          array('message' => 'Missing Required parameters')
         );
         exit();
       }
@@ -14,7 +14,7 @@
       $author->read_single();
       if(empty($author->name)) {
         echo json_encode(
-          array('message' => 'author_id not found')
+          array('message' => 'author_id Not found')
         );
         exit();
       }
@@ -24,7 +24,7 @@
       $category->read_single();
       if(empty($category->category)) {
         echo json_encode(
-          array('message' => 'category_id not found')
+          array('message' => 'category_id Not found')
         );
         exit();
       }
